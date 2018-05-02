@@ -73,12 +73,6 @@ public class Bai89 extends javax.swing.JFrame {
 
         txtSoSP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtSoSP.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSoSPKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSoSPKeyTyped(evt);
-            }
         });
 
         txtTienLuong.setBackground(new java.awt.Color(0, 255, 255));
@@ -254,12 +248,12 @@ public class Bai89 extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         if(tbNhanVien.getSelectedRow()==-1){
             if(tbNhanVien.getRowCount()==0)
-            JOptionPane.showMessageDialog(this, "Bảng đang rỗng");
+            JOptionPane.showMessageDialog(this, "Bảng đang rỗng","Cảnh báo",2);
             else
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng cần xóa");
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng cần xóa","Cảnh báo",2);
         }
         else {
-            int yesNo= JOptionPane.showConfirmDialog(this,"Bạn có muốn cập nhật hay không?","Confirm message", JOptionPane.YES_NO_OPTION);
+            int yesNo= JOptionPane.showConfirmDialog(this,"Bạn có muốn cập nhật hay không?","Xác nhận", JOptionPane.YES_NO_OPTION);
             if (yesNo==0){
                 NhanVien nhanvien = new NhanVien();
                 nhanvien.setMaNV(txtMaNV.getText());
@@ -292,12 +286,12 @@ public class Bai89 extends javax.swing.JFrame {
         NhanVien nhanvien = new NhanVien();
         //Nhập thông tin nhân viên
         if (txtMaNV.getText().trim().equals("") || txtSoSP.getText().trim().equals(""))
-            JOptionPane.showMessageDialog(this, "Có dữ liệu chưa nhập");
+            JOptionPane.showMessageDialog(this, "Có dữ liệu chưa nhập","Lỗi",0);
         else{
                     nhanvien.setMaNV(txtMaNV.getText());
                     nhanvien.setPhanXuong(cbbPhanXuong.getSelectedItem().toString());        
                     if (!txtSoSP.getText().matches("\\d+")) //Kiểm tra có phải là số không
-                        JOptionPane.showMessageDialog(this, "Số sản phẩm phải nhập số");
+                        JOptionPane.showMessageDialog(this, "Số sản phẩm phải nhập số","Lỗi",0);
                     else{
                         nhanvien.setSoSP(Integer.parseInt(txtSoSP.getText()));
                         nv.add(nhanvien);      
@@ -329,26 +323,18 @@ public class Bai89 extends javax.swing.JFrame {
         else
             txtSoSP1.setText("500");
     }//GEN-LAST:event_cbbPhanXuongItemStateChanged
-
-    private void txtSoSPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoSPKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoSPKeyTyped
-
-    private void txtSoSPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoSPKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoSPKeyPressed
-
+    
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         if(tbNhanVien.getSelectedRow()==-1){
             if(tbNhanVien.getRowCount()==0)
-            JOptionPane.showMessageDialog(this, "Bảng đang rỗng");
+            JOptionPane.showMessageDialog(this, "Bảng đang rỗng","Cảnh báo",2);
             else
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng cần xóa");
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng cần xóa","Cảnh báo",2);
         }
         else {
-            int yesNo= JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa hay không?","Confirm message", JOptionPane.YES_NO_OPTION);
+            int yesNo= JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa hay không?","Xác nhận", JOptionPane.YES_NO_OPTION);
             if (yesNo==0){
                 model.removeRow(tbNhanVien.getSelectedRow());
                 Clear();
@@ -358,17 +344,24 @@ public class Bai89 extends javax.swing.JFrame {
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         // TODO add your handling code here:
+        try{
         NhanVien nhanvien = new NhanVien();
         nhanvien.setMaNV(txtMaNV.getText());
         nhanvien.setPhanXuong(cbbPhanXuong.getSelectedItem().toString());
         nhanvien.setSoSP(Integer.parseInt(txtSoSP.getText()));
         txtTienLuong.setText(Long.toString(nhanvien.TinhLuong()));
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Chưa có dữ liệu","Lỗi",0);
+        }
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnDongActionPerformed
+        int yesNo= JOptionPane.showConfirmDialog(this,"Bạn có muốn đóng cửa sổ ?","Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (yesNo==0)
+            System.exit(0);
+    } //GEN-LAST:event_btnDongActionPerformed
 
     /**
      * @param args the command line arguments
